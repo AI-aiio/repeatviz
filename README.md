@@ -115,10 +115,29 @@ repeatviz run  assembly.fa -o rv -t 16 -m 64 --long-mode ultra                # 
 repeatviz run  assembly.fa -o rv -t 16 -m 64 --short-mode full                # ULTRA short pass on the whole assembly
 ```
 
-Layouts: an **AGP** (objects whose name matches `--chrom-regex`, default `chr1`…/`scaf_chrX`, are
-chromosomes; everything else is unplaced) or a curation **edits.tsv** (`object part contig start end
-orient gap_after status note`, 1-based inclusive; objects `UNPLACED` / `REMOVED`). Chromosomes whose
+### Inputs
+
+| input | needed for | where it usually comes from |
+|---|---|---|
+| assembly FASTA (plain or `.gz`) | `run` (required) | any assembler (e.g. hifiasm contigs) |
+| **AGP** (`--agp`) | `plot`: contig junctions inside chromosomes | a scaffolder (YaHS, RagTag, synscaf, …) or an AGP exported after manual curation (e.g. PretextView, or Juicebox `.assembly` converted to AGP) |
+| edits.tsv (`--edits`) | `plot`: same as AGP, plus `draft` status | optional plain-text curation plan (format below); write it by hand or from your own scripts |
+| depth BED (`--depth`) | `plot`: collapse track | read mapping + mosdepth (recipe below) |
+
+Without `--agp` / `--edits`, contigs ≥ 10 Mb are drawn one per row and no junctions are shown.
+
+Layouts: in an **AGP**, objects whose name matches `--chrom-regex` (default `chr1`…/`scaf_chrX`) are
+chromosomes; everything else is unplaced. An **edits.tsv** has the columns `object part contig start end
+orient gap_after status note` (1-based inclusive; objects `UNPLACED` / `REMOVED`); chromosomes whose
 plan still has `draft` rows are labelled in red. Contigs missing from the layout are listed as unplaced.
+
+Depth BED (100 kb windows, as used by `--depth`):
+
+```bash
+minimap2 -t 16 -ax map-hifi assembly.fa reads.fq.gz | samtools sort -@ 4 -o aln.bam
+samtools index aln.bam
+mosdepth -t 4 -n --fast-mode --by 100000 depth aln.bam      # -> depth.regions.bed.gz
+```
 
 Demo (≈1 min): `python3 demo/make_demo.py demo/ && repeatviz run demo/demo.fa -o demo/out/run --window 10000 --region-min-len 5000 -t 4 -m 16 && repeatviz plot demo/out/run -o demo/out/demo --edits demo/demo.edits.tsv --depth demo/demo.depth.bed --end-flank 50000`
 
