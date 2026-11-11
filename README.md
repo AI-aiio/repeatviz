@@ -117,6 +117,9 @@ repeatviz run  assembly.fa -o rv -t 16 -m 64 --short-mode full                # 
 
 ### Inputs
 
+**To see the repeat maps, the assembly FASTA alone is enough. To see the contig junctions, also give an
+AGP (`--agp`) or an edits.tsv (`--edits`, see [Writing an edits.tsv](#writing-an-editstsv)).**
+
 | input | needed for | where it usually comes from |
 |---|---|---|
 | assembly FASTA (plain or `.gz`) | `run` (required) | any assembler (e.g. hifiasm contigs) |
