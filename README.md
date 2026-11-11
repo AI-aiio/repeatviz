@@ -131,6 +131,30 @@ chromosomes; everything else is unplaced. An **edits.tsv** has the columns `obje
 orient gap_after status note` (1-based inclusive; objects `UNPLACED` / `REMOVED`); chromosomes whose
 plan still has `draft` rows are labelled in red. Contigs missing from the layout are listed as unplaced.
 
+### Writing an edits.tsv
+
+A plain tab-separated file, one row per piece of contig. A commented example is in
+[`docs/edits_template.tsv`](docs/edits_template.tsv).
+
+| column | meaning |
+|---|---|
+| `object` | chromosome name (`chr1`, `chrX`, …), or `UNPLACED`, or `REMOVED` |
+| `part` | order of the piece in the chromosome: 1, 2, 3, … |
+| `contig` | contig name exactly as in the assembly FASTA |
+| `start`, `end` | 1-based, inclusive. Whole contig: `1` and its length. A contig may be split over several rows |
+| `orient` | `+` as in the FASTA, `-` reverse complement |
+| `gap_after` | number of N before the next piece (e.g. `100`); empty for the last piece |
+| `status` | `decided` or `draft` (chromosomes with any `draft` row are labelled in red) |
+| `note` | free text, optional |
+
+Lines starting with `#`, empty lines and a header line starting with `object` are ignored.
+Contigs that are not listed are drawn as unplaced. To start a file:
+
+```bash
+python3 scripts/make_edits_template.py assembly.fa > edits.tsv                    # every contig UNPLACED
+python3 scripts/make_edits_template.py assembly.fa --agp scaffolds.agp > edits.tsv # from an AGP (rows start as draft)
+```
+
 Depth BED (100 kb windows, as used by `--depth`):
 
 ```bash

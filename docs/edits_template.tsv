@@ -1,0 +1,20 @@
+# repeatviz edits.tsv template (tab-separated; lines starting with # are ignored)
+# object  = chromosome name (chr1, chrX, ...), or UNPLACED, or REMOVED
+# part    = order of the piece in the chromosome (1, 2, 3, ...)
+# contig  = contig name exactly as in the assembly FASTA
+# start / end = 1-based, inclusive (whole contig: 1 and its length)
+# orient  = + (as in the FASTA) or - (reverse complement)
+# gap_after = number of N between this piece and the next (e.g. 100); empty for the last piece
+# status  = decided or draft (draft chromosomes are labelled in red)
+# note    = free text (optional)
+object	part	contig	start	end	orient	gap_after	status	note
+chr1	1	ctg001	1	52000000	+	100	decided	joined by Hi-C / reference
+chr1	2	ctg014	1	31500000	-		decided	
+chr2	1	ctg002	1	48700000	+		decided	single contig, telomere at both ends
+chr3	1	ctg005	1	20000000	+	100	draft	join not confirmed yet
+chr3	2	ctg009	1	18300000	+		draft	
+chr4	1	ctg003	1	12000000	-	100	decided	ctg003 split: first part
+chr4	2	ctg011	1	25000000	+		decided	
+chr5	1	ctg003	12000001	40000000	+		decided	ctg003 split: second part
+UNPLACED	1	ctg020	1	850000	+		decided	satellite array, no anchor
+REMOVED	1	ctg021	1	120000	+		decided	haplotig / contaminant
