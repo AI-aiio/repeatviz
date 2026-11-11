@@ -75,8 +75,8 @@ ULTRA consensus), `tandem_frac` (share of the array explained by its period; low
 
 The number of ULTRA threads is chosen from `--memory` using `ultra --mem` (the long pass needs a few GB per thread). Each step's output is kept, so an interrupted run resumes.
 
-**Run time (v0.2 defaults)**: for a ~3 Gb mammalian assembly on 8 threads, roughly **30 min** in total
-and under 10 GB of memory; the ULTRA short pass and meryl take most of the time (v0.1 took hours).
+**Run time (v0.2 defaults)**: for a 2.5–3.5 Gb mammalian assembly on 8 threads, roughly **30–50 min** in total
+and about 10–15 GB of memory (`-m 24` is enough); the ULTRA short pass and meryl take most of the time (v0.1 took hours).
 
 `repeatviz plot` is pure Python (numpy / pandas / matplotlib) and only reads the files written by `run`.
 
