@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repeatviz"
+version = "0.3.0"
+description = "Chromosome-layout heatmaps of tandem / multi-copy repeats for draft-assembly curation"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "aiio" }]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.22",
+    "pandas>=1.5",
+    # matplotlib renders PDF/PNG headless (Agg); no browser needed.
+    "matplotlib>=3.6",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+repeatviz = "repeatviz.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["repeatviz*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

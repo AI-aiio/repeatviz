@@ -1,0 +1,15 @@
+# conda env create -f environment.yml && conda activate repeatviz && pip install -e .
+# Everything `repeatviz run` and `repeatviz plot` need, on any Linux / macOS machine (no HPC required).
+name: repeatviz
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python>=3.10
+  - numpy
+  - pandas
+  - matplotlib
+  - pytest
+  - meryl=1.4.1          # k-mer counting + meryl-lookup (multi-copy track)
+  - ultra=1.2.1          # tandem-repeat finder (ULTRA, Olson & Wheeler)
+  - tantan               # fast tandem-repeat masker (short-pass prefilter, v0.2)

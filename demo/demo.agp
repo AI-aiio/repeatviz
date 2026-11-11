@@ -1,0 +1,4 @@
+chr1	1	400000	1	W	ctgA	1	400000	+
+chr1	400001	400100	2	N	100	scaffold	yes	na
+chr1	400101	700100	3	W	ctgB	1	300000	+
+ctgC	1	80000	1	W	ctgC	1	80000	+
