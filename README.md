@@ -3,6 +3,9 @@
 Chromosome-layout heatmaps of **tandem** and **multi-copy** repeats for draft-assembly
 curation: *where are the repeats, what kind are they, and are they where the contigs break?*
 
+It is a quick overview (tandem or multi-copy, unit length, copy number), **not a repeat annotation**:
+repeat families and classes are not identified (see [Limitations](#limitations)).
+
 `repeatviz` is meant for the stage right after automatic scaffolding (e.g. synscaf / YaHS)
 and before manual curation. Every chromosome is drawn as a bar of contigs (contig boundaries
 marked). `plot` writes **four PDFs** (`--maps` to choose) (portrait, ~15 chromosomes per page, then UNPLACED pages):
@@ -172,8 +175,13 @@ Tests: `pytest` (no external tools needed).
 
 ## Limitations
 
-- **Interspersed repeats are not named.** LINE / SINE / LTR / DNA elements only appear as
-  "high-copy" or "low-copy" k-mer signal; run RepeatMasker separately if you need classes.
+- **Not a repeat annotation.** repeatviz does not identify repeat families or classes the way
+  RepeatMasker / RepeatModeler, EDTA or TRASH do: no LINE / SINE / LTR / DNA classes, no satellite
+  family names, no Dfam / Repbase search, and no masked genome. Interspersed repeats only appear as
+  "high-copy" or "low-copy" k-mer signal, and tandem arrays only as period, copy number and a
+  consensus unit (`units.fa`, which you can search in Dfam or run through RepeatMasker yourself).
+  Use a dedicated repeat-annotation tool for masking before gene prediction or for repeat-content
+  statistics.
 - **Repeats missing from the assembly are not shown.** Satellite that the assembler left out
   (inside gaps) is invisible here; a comparison with read k-mers is planned as a separate output.
 - **Long pass, `kmer` mode:** periods come from exact 16-mer repeats, so strongly diverged
